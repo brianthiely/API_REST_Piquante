@@ -1,6 +1,9 @@
+// Importation du modele sauce (constructeur)
 const Sauce = require('../models/Sauce');
+// Importation du package fs de node "file system" pour avoir acces aux differentes opération
 const fs = require('fs');
 
+// Logique exporter dans les routes pour la création de sauce
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
@@ -13,6 +16,7 @@ exports.createSauce = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
+// Logique exporter dans les routes pour l'affichage d'une sauce
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({
     _id: req.params.id
@@ -29,6 +33,7 @@ exports.getOneSauce = (req, res, next) => {
   );
 };
 
+// Logique exporter dans les routes pour la modification d'une sauce
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file ?
     {
@@ -47,6 +52,7 @@ exports.modifySauce = (req, res, next) => {
     })
 };
 
+// Logique exporter dans les routes pour la supression d'une sauce
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
@@ -60,6 +66,7 @@ exports.deleteSauce = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+// Logique exporter dans les routes pour l'affichage de toutes les sauces
 exports.getAllSauce = (req, res, next) => {
   Sauce.find().then(
     (sauces) => {
@@ -74,6 +81,7 @@ exports.getAllSauce = (req, res, next) => {
   );
 };
 
+// Logique exporter dans les routes pour l'ajout de like/dislike
 exports.likeSauce = (req, res, next) => {
     const userId = req.body.userId;
     const like = req.body.like;

@@ -1,3 +1,4 @@
+// Mongoose permet de définir des objet grâce au schema de données mongoDB
 const mongoose = require('mongoose');
 
 const sauceSchema = mongoose.Schema({

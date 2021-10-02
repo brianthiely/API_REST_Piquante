@@ -1,3 +1,4 @@
+// Configuration du package Multer pour gérer les fichiers entrant dans les req 
 const multer = require('multer');
 
 const MIME_TYPES = {

@@ -1,7 +1,10 @@
+// Permet de sécurisé un mdp
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+// Permet de génerer des tokens d'authentifcation
 const jwt = require('jsonwebtoken');
 
+// Logique exporter dans les routes pour l'inscription d'utilisateurs
 exports.signup = (req, res, next) => {
 	bcrypt.hash(req.body.password, 10)
 		.then((hash) => {
@@ -16,6 +19,7 @@ exports.signup = (req, res, next) => {
 		.catch((error) => res.status(500).json({ error }));
 };
 
+// Logique exporter dans les routes pour la connexion d'un utilisateurs
 exports.login = (req, res, next) => {
 	User.findOne({ email: req.body.email })
 		.then((user) => {
