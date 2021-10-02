@@ -14,9 +14,9 @@ const storage = multer.diskStorage({
     // Func filename indique indique d'utiliser le noms d'origine, remplacer les espace par underscore et ajouter extension appropriers
 	filename: (req, file, callback) => {
 		const name = file.originalname.split(' ').join('_');
-		const extension = MIME_TYPES(file.mimetype);
+		const extension = MIME_TYPES[file.mimetype];
 		callback(null, name + Date.now() + '.' + extension);
 	},
 });
 
-module.exports = multer({ storage }).single('image');
+module.exports = multer({ storage: storage }).single('image');
