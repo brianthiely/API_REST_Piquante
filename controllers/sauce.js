@@ -93,8 +93,6 @@ exports.likeSauce = (req, res, next) => {
             const newValues = {
                 usersLiked: sauce.usersLiked,
                 usersDisliked: sauce.usersDisliked,
-                likes: 0,
-                dislikes: 0
             }
             // Différents cas:
             switch (like) {
@@ -107,7 +105,9 @@ exports.likeSauce = (req, res, next) => {
                 case 0:  // CAS: Annulation du like/dislike
                     if (newValues.usersLiked.includes(userId)) {
                         // si on annule le like
+                        // IndexOf va chercher la valeur du like
                         const index = newValues.usersLiked.indexOf(userId);
+                        // Splice va retirer la valeur du like
                         newValues.usersLiked.splice(index, 1);
                     } else {
                         // si on annule le dislike
