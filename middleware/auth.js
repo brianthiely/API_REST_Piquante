@@ -1,6 +1,7 @@
 // Permet de génerer des tokens d'authentifcation
 const jwt = require('jsonwebtoken');
 
+
 // Logique exporter dans les routes pour sécuriser l'acces aux routes par l'authentification
 module.exports = (req, res, next) => {
   try {
