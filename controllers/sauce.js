@@ -89,7 +89,7 @@ exports.likeSauce = (req, res, next) => {
 
     Sauce.findOne({ _id: sauceId })
         .then(sauce => {
-            // nouvelles valeurs à modifier
+            // Nouvelles valeurs à modifier
             const newValues = {
                 usersLiked: sauce.usersLiked,
                 usersDisliked: sauce.usersDisliked,

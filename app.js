@@ -1,9 +1,12 @@
 const express = require('express');
+const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauce');
 const path = require('path');
+// Helmet est un ensemble de middleware qui permet de sécuriser nos en tête http
+app.use(helmet());
 
 // Connection de la bibliotheque mongoose à la base de donnée mongoDB
 mongoose
