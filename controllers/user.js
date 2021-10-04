@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 // Permet de génerer des tokens d'authentifcation
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 // Logique exporter dans les routes pour l'inscription d'utilisateurs
 exports.signup = (req, res, next) => {
@@ -34,7 +36,7 @@ exports.login = (req, res, next) => {
 					}
 					res.status(200).json({
 						userId: user._id,
-						token: jwt.sign({ userId: user._id }, 'kgIGIYTG87669GGJF', {
+						token: jwt.sign({ userId: user._id }, process.env.SECRET_TOKEN, {
 							expiresIn: '24h',
 						}),
 					});
