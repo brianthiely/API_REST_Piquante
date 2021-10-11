@@ -44,7 +44,7 @@ exports.modifySauce = (req, res, next) => {
     } : { ...req.body };
   Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Sauce modifié !'}))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(400).json({ error }));  
 };
 
 // Logique exporter dans les routes pour la supression d'une sauce
