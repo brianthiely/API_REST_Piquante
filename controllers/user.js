@@ -3,15 +3,18 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 // Permet de génerer des tokens d'authentifcation
 const jwt = require('jsonwebtoken');
+// Crypte l'email dans BDD
+const cryptojs = require('crypto-js');
 require('dotenv').config();
 
 
 // Logique exporter dans les routes pour l'inscription d'utilisateurs
 exports.signup = (req, res, next) => {
+	const cryptEmail = cryptojs.HmacSHA512(req.body.email, process.env.SECRET_CRYPTOJS_TOKEN).toString(cryptojs.enc.Base64);
 	bcrypt.hash(req.body.password, 10)
 		.then((hash) => {
 			const user = new User({
-				email: req.body.email,
+				email: cryptEmail,
 				password: hash,
 			});
 			user.save()
@@ -23,7 +26,8 @@ exports.signup = (req, res, next) => {
 
 // Logique exporter dans les routes pour la connexion d'un utilisateurs
 exports.login = (req, res, next) => {
-	User.findOne({ email: req.body.email })
+	const cryptEmail = cryptojs.HmacSHA512(req.body.email, process.env.SECRET_CRYPTOJS_TOKEN).toString(cryptojs.enc.Base64);
+	User.findOne({ email: cryptEmail })
 		.then((user) => {
 			if (!user) {
 				return res.status(401).json({ error: 'Utilisateur non trouvé !' });
