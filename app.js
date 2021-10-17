@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
-
+const logger = require('morgan');
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauce');
 const path = require('path');
@@ -17,8 +17,8 @@ mongoose
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	})
-	.then(() => console.log('Connexion à MongoDB réussie !'))
-	.catch(() => console.log('Connexion à MongoDB échouée !'));
+	.then(() => logger(), console.log('Connexion à MongoDB réussie !'))
+	.catch(() => logger(), console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,10 +33,11 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(logger('dev'));
 app.use(express.json());
 // La fonction static de express va nous permettre de charger les fichiers qui sont stocker dans le dossier images
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/auth', userRoutes);
-app.use('/api/sauces', saucesRoutes);
+app.use('/images',  express.static(path.join(__dirname, 'images')));
+app.use('/api/auth',logger(), userRoutes);
+app.use('/api/sauces',logger(), saucesRoutes);
 
 module.exports = app;
