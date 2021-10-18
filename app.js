@@ -2,11 +2,16 @@ const express = require('express');
 const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
-const logger = require('morgan');
+const morgan = require('morgan');
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauce');
 const path = require('path');
+var fs = require('fs')
 require('dotenv').config();
+// create a write stream (in append mode)
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+
 
 // Helmet est un ensemble de middleware qui permet de sécuriser nos en tête http
 app.use(helmet());
@@ -34,11 +39,11 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use(logger('dev'));
+app.use(morgan('combined', { stream: accessLogStream }))
 
 // La fonction static de express va nous permettre de charger les fichiers qui sont stocker dans le dossier images
 app.use('/images',  express.static(path.join(__dirname, 'images')));
-app.use('/api/auth', userRoutes);
-app.use('/api/sauces', saucesRoutes);
+app.use('/api/auth',userRoutes);
+app.use('/api/sauces',saucesRoutes);
 
 module.exports = app;
