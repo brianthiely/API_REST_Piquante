@@ -33,8 +33,9 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(logger('dev'));
 app.use(express.json());
+app.use(logger('dev'));
+
 // La fonction static de express va nous permettre de charger les fichiers qui sont stocker dans le dossier images
 app.use('/images',  express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
