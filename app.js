@@ -17,8 +17,8 @@ mongoose
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	})
-	.then(() => logger(), console.log('Connexion à MongoDB réussie !'))
-	.catch(() => logger(), console.log('Connexion à MongoDB échouée !'));
+	.then(() => console.log('Connexion à MongoDB réussie !'))
+	.catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,7 +37,7 @@ app.use(logger('dev'));
 app.use(express.json());
 // La fonction static de express va nous permettre de charger les fichiers qui sont stocker dans le dossier images
 app.use('/images',  express.static(path.join(__dirname, 'images')));
-app.use('/api/auth',logger(), userRoutes);
-app.use('/api/sauces',logger(), saucesRoutes);
+app.use('/api/auth', userRoutes);
+app.use('/api/sauces', saucesRoutes);
 
 module.exports = app;
