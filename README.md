@@ -4,15 +4,7 @@ Ce répository contient la réponse au Projet 6 du cursus Développeur Web d'Ope
 
 Il s'agit de Hot Takes : une applications de notations de critique de sauces piquantes !
 
-Pour faire fonctionner ce projet, il faut tout tout d'abord installer le frontend de l'application situé à l'adresse suivante et suivre les instructions :
-
-https://github.com/brianthiely/API_REST_Piquante_Frontend
-
-Une fois le projet installé, cloner ce repository en dehors du dossier API_REST_Piquante_Frontend :
-
-https://github.com/brianthiely/API_REST_Piquante
-
-Faites ensuite un npm install et npm i nodemon pour installer les packages nécessaires à l'utilisation du backend.
+npm install et npm i nodemon pour installer les packages nécessaires à l'utilisation du backend.
 
 Il faudra également créer dans le dossier backend un dossier nommé : images. Celui-ci contiendra toutes les images que vous utiliserez à la création d'une sauce.
 
