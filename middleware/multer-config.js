@@ -1,5 +1,5 @@
 // Configuration du package Multer pour gérer les fichiers entrant dans les req 
-const multer = require('multer');
+import multer, { diskStorage } from 'multer';
 
 const MIME_TYPES = {
 	'image/jpg': 'jpg',
@@ -7,7 +7,7 @@ const MIME_TYPES = {
 	'image/png': 'png',
 };
 // Indique à Multer la logique de stockage des fichiers entrants
-const storage = multer.diskStorage({
+const storage = diskStorage({
     // Func dest indique d'enregistrer les photos dans le dossier images
 	destination: (req, file, callback) => {
 		callback(null, 'images');
@@ -20,4 +20,4 @@ const storage = multer.diskStorage({
 	},
 });
 
-module.exports = multer({ storage: storage }).single('image');
+export default multer({ storage: storage }).single('image');
