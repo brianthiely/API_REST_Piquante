@@ -2,7 +2,6 @@
 const Sauce = require('../models/Sauce');
 // Importation du package fs de node "file system" pour avoir acces aux differentes opération
 const fs = require('fs');
-const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET_NAME;
 
 
