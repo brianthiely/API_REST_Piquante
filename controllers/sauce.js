@@ -2,6 +2,9 @@
 const Sauce = require('../models/Sauce');
 // Importation du package fs de node "file system" pour avoir acces aux differentes opération
 const fs = require('fs');
+const aws = require('aws-sdk');
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
+
 
 // Logique exporter dans les routes pour la création de sauce
 exports.createSauce = (req, res, next) => {
@@ -9,7 +12,7 @@ exports.createSauce = (req, res, next) => {
   delete sauceObject._id;
   const sauce = new Sauce({
     ...sauceObject,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    imageUrl: `${req.protocol}${S3_BUCKET}.s3.amazonaws.com/${req.file.filename}`
   });
   sauce.save()
     .then(() => res.status(201).json({ message: 'Sauce ajouté !'}))
@@ -39,7 +42,7 @@ exports.modifySauce = (req, res, next) => {
   
     {
       ...JSON.parse(req.body.sauce),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      imageUrl: `${req.protocol}${S3_BUCKET}.s3.amazonaws.com/${req.file.filename}`
       
     } : { ...req.body };
   Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })

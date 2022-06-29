@@ -8,6 +8,7 @@ const cryptojs = require('crypto-js');
 require('dotenv').config();
 
 
+
 // Logique exporter dans les routes pour l'inscription d'utilisateurs
 exports.signup = (req, res, next) => {
 	const cryptEmail = cryptojs.HmacSHA512(req.body.email, process.env.SECRET_CRYPTOJS_TOKEN).toString(cryptojs.enc.Base64);

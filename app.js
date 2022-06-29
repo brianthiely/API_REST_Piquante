@@ -1,4 +1,5 @@
 const express = require('express');
+const aws = require('aws-sdk');
 const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
@@ -8,6 +9,8 @@ const saucesRoutes = require('./routes/sauce');
 const path = require('path');
 var fs = require('fs')
 require('dotenv').config();
+aws.config.region = 'eu-west-3';
+
 // create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
